@@ -1,1 +1,61 @@
+# Mutable vs Immutable (Java) 
+## 1. Quick definitions
 
+* **Immutable object**: Once created, its state cannot be changed. Any transformation returns a new object.
+* **Mutable object**: Its state can be changed after construction (via setters or other mutator methods).
+
+---
+
+## 2. When to use which
+
+**Immutable** — good when:
+
+* You need thread-safety without synchronization.
+* Objects are used as keys in maps or elements in sets.
+* You want simpler reasoning about state and fewer bugs from shared mutable state.
+
+**Mutable** — good when:
+
+* The object represents a changing real-world entity (e.g., user profile, editable form data).
+* Performance is important and you want to update fields rather than create new objects frequently.
+* You need in-place updates and want to avoid object churn.
+
+---
+
+## 3. Rules to make a class **immutable**
+
+1. Declare the class as `final` to prevent inheritance.
+2. Make all fields `private` and `final`.
+3. Initialize all fields in the constructor.
+4. Do not provide any setters.
+5. Do not allow `this` to escape during construction.
+6. Defensive copy mutable inputs in the constructor.
+7. Return defensive copies or unmodifiable views from getters for mutable fields.
+8. Ensure invariants are preserved during serialization and deserialization.
+
+---
+
+## 4. Rules to make a class **mutable**
+
+1. Keep fields `private` but allow setters to update state.
+2. Validate inputs in setters to maintain data integrity.
+3. Be cautious with exposing internal mutable state.
+4. Document thread-safety clearly — mutable classes are not inherently thread-safe.
+5. Avoid mutating fields used in `equals` or `hashCode` if objects are used in collections like `HashMap`.
+
+---
+
+## 5. Common pitfalls
+
+* Forgetting to declare fields `final` in an immutable class.
+* Adding setters or public fields which break immutability.
+* Exposing internal collections or arrays directly.
+* Using mutable fields in `equals`/`hashCode` for objects stored in collections.
+* Letting `this` escape during construction.
+
+---
+
+## 6. Thread-safety notes
+
+* Immutable objects are inherently thread-safe — no need for synchronization.
+* Mutable objects require synchronization or safe concurrent handling.
