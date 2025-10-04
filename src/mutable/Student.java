@@ -2,9 +2,9 @@ package mutable;
 
 public class Student {
 
-	int id;
-	String name;
-	String city;
+	private int id;
+	private String name;
+	private String city;
 	
 	Student(int id,String name,String city){
 		this.id = id;
